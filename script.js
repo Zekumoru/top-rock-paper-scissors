@@ -69,12 +69,12 @@ function capitalizeString(str) {
 function game() {
     let winCounter = 0;
     let loseCounter = 0;
-    
+    let playerInput = null;
+
     for (let round = 0; round < NUMBER_OF_ROUNDS; round++) {
-        let playerInput = promptPlayerInput(round);
+        playerInput = promptPlayerInput(round);
         
         if (playerInput === null) {
-            console.log(`You forfeited the game!`);
             break;
         }
         else {
@@ -90,7 +90,10 @@ function game() {
     }
 
     console.group("Game Result");
-    if (winCounter === loseCounter) {
+    if (playerInput === null) {
+        console.log(`Uh oh! You lost! You forfeited the game!`);
+    }
+    else if (winCounter === loseCounter) {
         console.log("It is a tie!");
     }
     else if (winCounter > loseCounter) {
