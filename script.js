@@ -1,4 +1,7 @@
 
+const NUMBER_OF_ROUNDS = 5;
+const INPUT_EVALUATION_REGEX = /^(rock|paper|scissors)$/i;
+
 const ROCK = 'Rock';
 const PAPER = 'Paper';
 const SCISSORS = 'Scissors';
@@ -59,3 +62,64 @@ function evalWinLoseResult(playerSelection, computerSelection, computerWinSelect
 function capitalizeString(str) {
     return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 }
+
+/*
+    Starts a game of rock, paper, and scissors.
+*/
+function game() {
+    let winCounter = 0;
+    let loseCounter = 0;
+    
+    for (let round = 0; round < NUMBER_OF_ROUNDS; round++) {
+        let playerInput = promptPlayerInput(round);
+        
+        if (playerInput === null) {
+            console.log(`You forfeited the game!`);
+            break;
+        }
+        else {
+            let roundResult = playRound(playerInput, computerPlay());
+            if (/win/i.test(roundResult)) {
+                winCounter++;
+            }
+            else if (/lost/i.test(roundResult)) {
+                loseCounter++;
+            }
+            console.log(`Round ${round + 1}:`, roundResult);
+        }
+    }
+
+    console.group("Game Result");
+    if (winCounter === loseCounter) {
+        console.log("It is a tie!");
+    }
+    else if (winCounter > loseCounter) {
+        console.log(`Congratulations! You won against the computer by ${winCounter - loseCounter} point(s)!`);
+    }
+    else {
+        console.log(`Uh oh! You lost against the computer by ${loseCounter - winCounter} point(s)!`);
+    }
+    console.groupEnd("Game Result");
+}
+
+/*
+    Checks the user's play input if valid then
+    returns it.
+*/
+function promptPlayerInput(round) {
+    let input = prompt("ROUND " + (round + 1)
+        + "\nChoose between 'Rock', 'Paper', and 'Scissors' by typing it below:"
+        + "\n(Pressing Esc stops the game.)");
+
+    while (!(input === null || INPUT_EVALUATION_REGEX.test(input))) {
+        input = prompt("ROUND " + (round + 1)
+        + "\nChoose between 'Rock', 'Paper', and 'Scissors' by typing it below:"
+        + "\n(Pressing Esc or Cancel below will end the game.)"
+        + "\n"
+        + "\nInvalid input: " + input);
+    }
+
+    return input;
+}
+
+game();
