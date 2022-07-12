@@ -1,8 +1,12 @@
 
+const ROCK = 'Rock';
+const PAPER = 'Paper';
+const SCISSORS = 'Scissors';
+
 const HAND_OPTIONS = [
-    'Rock',
-    'Paper',
-    'Scissors'
+    ROCK,
+    PAPER,
+    SCISSORS
 ];
 
 /*
