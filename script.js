@@ -52,5 +52,5 @@ function playRound(playerSelection, computerSelection) {
     and the rest are lower cased.
 */
 function capitalizeString(str) {
-    return str.charAt(0).toUpperCase() + str.substring(1);
+    return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 }
