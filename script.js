@@ -47,6 +47,10 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+/*
+    Returns a string where the first character is upper cased
+    and the rest are lower cased.
+*/
 function capitalizeString(str) {
     return str.charAt(0).toUpperCase() + str.substring(1);
 }
