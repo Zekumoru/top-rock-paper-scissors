@@ -22,29 +22,34 @@ function computerPlay() {
     of this game.
 */
 function playRound(playerSelection, computerSelection) {
+    playerSelection = capitalizeString(playerSelection);
+    computerSelection = capitalizeString(computerSelection);
+
     if (playerSelection === computerSelection) {
-        return `It is a draw! ${capitalizeString(playerSelection)} cannot beat itself!`;
+        return `It is a draw! ${playerSelection} cannot beat itself!`;
     }
-    if (playerSelection.toUpperCase() === ROCK.toUpperCase()) {
-        if (computerSelection.toUpperCase() === PAPER.toUpperCase()) {
-            return `You lose! Paper beats Rock!`;
-        }
-        // Since there's only one case remaining to deal with
-        // We don't need to write any more conditions for that!
-        return `You win! Rock beats Scissors!`;
+    if (playerSelection === ROCK) {
+        return evalWinLoseResult(playerSelection, computerSelection, PAPER, SCISSORS);
     }
-    if (playerSelection.toUpperCase() === PAPER.toUpperCase()) {
-        if (computerSelection.toUpperCase() === SCISSORS.toUpperCase()) {
-            return `You lose! Scissors beats Paper!`;
-        }
-        return `You win! Paper beats Rock!`;
+    if (playerSelection === PAPER) {
+        return evalWinLoseResult(playerSelection, computerSelection, SCISSORS, ROCK);
     }
-    if (playerSelection.toUpperCase() === SCISSORS.toUpperCase()) {
-        if (computerSelection.toUpperCase() === ROCK.toUpperCase()) {
-            return `You lose! Rock beats Scissors!`;
-        }
-        return `You win! Scissors beats Paper!`;
+    if (playerSelection === SCISSORS) {
+        return evalWinLoseResult(playerSelection, computerSelection, ROCK, PAPER);
     }
+}
+
+/*
+    A helper function of the playRound function which returns
+    the result of a non-draw round.
+*/
+function evalWinLoseResult(playerSelection, computerSelection, computerWinSelection, computerLoseSelection) {
+    if (computerSelection === computerWinSelection) {
+        return `You lose! ${computerWinSelection} beats ${playerSelection}!`;
+    }
+    // Since there's only one case remaining to deal with
+    // We don't need to write any more conditions for that!
+    return `You win! ${playerSelection} beats ${computerLoseSelection}!`;
 }
 
 /*
