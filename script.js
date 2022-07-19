@@ -77,22 +77,6 @@ function game(event) {
     }
 }
 
-function promptPlayerInput(round) {
-    let input = prompt("ROUND " + (round + 1)
-        + "\nChoose between 'Rock', 'Paper', and 'Scissors' by typing it below:"
-        + "\n(Pressing Esc stops the game.)");
-
-    while (!(input === null || INPUT_EVALUATION_REGEX.test(input))) {
-        input = prompt("ROUND " + (round + 1)
-        + "\nChoose between 'Rock', 'Paper', and 'Scissors' by typing it below:"
-        + "\n(Pressing Esc or Cancel below will end the game.)"
-        + "\n"
-        + "\nInvalid input: " + input);
-    }
-
-    return input;
-}
-
 document.querySelectorAll('button[data-selection]').forEach((button) => {
     button.addEventListener('click', game);
 });
