@@ -8,3 +8,22 @@
 body {
     background-color: #18191A;
 }
+
+button {
+    color: antiquewhite;
+    background-color: transparent;
+    border: 2px solid antiquewhite;
+    border-radius: 4px;
+    padding: 0.8rem 1.8rem;
+    margin: 0.4rem 0.2rem;
+}
+
+button:hover {
+    color: #18191A;
+    background-color: antiquewhite;
+}
+
+button:active {
+    border-color: #e7d9c6;
+    background-color: #e7d9c6;
+}
