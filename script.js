@@ -13,6 +13,7 @@ const HAND_OPTIONS = [
 ];
 
 const buttons = document.querySelectorAll('button[data-selection]');
+const restartButton = document.querySelector('button.restart');
 const infoText = document.querySelector('.info');
 const roundText = document.querySelector('.round');
 const winText = document.querySelector('.win');
@@ -79,7 +80,8 @@ function game(event) {
     const winner = checkWinner();
     if (winner) {
         displayWinner(winner);
-        disableSelection();
+        toggleSelection();
+        showRestart();
     }
 }
 
@@ -132,12 +134,30 @@ function displayWinner(winner) {
     infoText.textContent = `${winner} has won! Press 'Restart' below to play again!`;
 }
 
-function disableSelection() {
+function toggleSelection() {
     buttons.forEach((button) => {
-        button.disabled = true;
+        button.disabled = !button.disabled;
     });
 }
 
+function showRestart() {
+    restartButton.style.display = 'block';
+}
+
+function restart() {
+    restartButton.style.display = 'none';
+
+    result.round = 0;
+    result.first = 0;
+    result.second = 0;
+    result.draw = 0;
+
+    infoText.textContent = 'Choose your weapon above and bring forth destruction against the computer!';
+    updateTexts();
+    toggleSelection();
+}
+
+restartButton.addEventListener('click', () => restart());
 buttons.forEach((button) => {
     button.addEventListener('click', game);
 });
