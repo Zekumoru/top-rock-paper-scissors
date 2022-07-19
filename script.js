@@ -49,6 +49,7 @@ function playRound(playerSelection, computerSelection) {
 function evalWinLoseResult(result, playerSelection, computerSelection, computerWinSelection, computerLoseSelection) {
     if (computerSelection === computerWinSelection) {
         result.lose++;
+        return;
     }
     // Since there's only one case remaining to deal with
     // We don't need to write any more conditions for that!
