@@ -47,7 +47,7 @@ function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 }
 
-function game() {
+function game(event) {
     let winCounter = 0;
     let loseCounter = 0;
     let playerInput = null;
@@ -86,4 +86,6 @@ function promptPlayerInput(round) {
     return input;
 }
 
-game();
+document.querySelectorAll('button[data-option]').forEach((button) => {
+    button.addEventListener('click', game);
+});
