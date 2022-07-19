@@ -12,7 +12,17 @@ const HAND_OPTIONS = [
     SCISSORS
 ];
 
-const result = document.querySelector('.result');
+const roundResultText = document.querySelector('.round-result');
+const roundText = document.querySelector('.round');
+const winText = document.querySelector('.win');
+const loseText = document.querySelector('.lose');
+
+const result = {
+    round: 0,
+    first: 0,
+    second: 0,
+    draw: 0
+};
 
 function computerPlay() {
     return HAND_OPTIONS[Math.floor(Math.random() * 3)];
@@ -61,20 +71,44 @@ function capitalize(str) {
 }
 
 function game(event) {
-    let winCounter = 0;
-    let loseCounter = 0;
-    let playerInput = event.target.dataset.selection;
-    
-    roundResult = playRound(playerInput, computerPlay());
+    const roundResult = playRoundWithComputer(event.target.dataset.selection);
+    displayRoundResult(roundResult);
+    updateTexts();
+}
+
+function playRoundWithComputer(playerSelection) {
+    const roundResult = playRound(playerSelection, computerPlay());
+    result.round++;
+
     if (roundResult.first) {
-        result.textContent = `You won using ${roundResult.firstSelection} against ${roundResult.secondSelection} by the computer!`;
+        result.first++;
     }
     else if (roundResult.second) {
-        result.textContent = `You lost using ${roundResult.firstSelection} against ${roundResult.secondSelection} by the computer!`;
+        result.second++;
     }
     else {
-        result.textContent = `It is a draw! You and the computer both chose ${playerInput}.`;
+        result.draw++;
     }
+    
+    return roundResult;
+}
+
+function displayRoundResult(roundResult) {
+    if (roundResult.first) {
+        roundResultText.textContent = `You won using ${roundResult.firstSelection} against ${roundResult.secondSelection} by the computer!`;
+    }
+    else if (roundResult.second) {
+        roundResultText.textContent = `You lost using ${roundResult.firstSelection} against ${roundResult.secondSelection} by the computer!`;
+    }
+    else {
+        roundResultText.textContent = `It is a draw! You and the computer both chose ${roundResult.firstSelection}.`;
+    }
+}
+
+function updateTexts() {
+    roundText.textContent = result.round;
+    winText.textContent = result.first;
+    loseText.textContent = result.second;
 }
 
 document.querySelectorAll('button[data-selection]').forEach((button) => {
