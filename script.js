@@ -52,23 +52,7 @@ function game() {
     let loseCounter = 0;
     let playerInput = null;
 
-    for (let round = 0; round < NUMBER_OF_ROUNDS; round++) {
-        playerInput = promptPlayerInput(round);
-        
-        if (playerInput === null) {
-            break;
-        }
-        else {
-            let roundResult = playRound(playerInput, computerPlay());
-            if (/win/i.test(roundResult)) {
-                winCounter++;
-            }
-            else if (/lost/i.test(roundResult)) {
-                loseCounter++;
-            }
-            console.log(`Round ${round + 1}:`, roundResult);
-        }
-    }
+    
 
     console.group("Game Result");
     if (playerInput === null) {
