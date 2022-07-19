@@ -12,6 +12,8 @@ const HAND_OPTIONS = [
     SCISSORS
 ];
 
+const result = document.querySelector('.result');
+
 function computerPlay() {
     return HAND_OPTIONS[Math.floor(Math.random() * 3)];
 }
@@ -20,27 +22,37 @@ function playRound(playerSelection, computerSelection) {
     playerSelection = capitalize(playerSelection);
     computerSelection = capitalize(computerSelection);
 
+    const result = {
+        player: playerSelection,
+        computer: computerSelection,
+        win: 0,
+        lose: 0,
+        draw: 0
+    };
+
     if (playerSelection === computerSelection) {
-        return `It is a draw! ${playerSelection} cannot beat itself!`;
+        result.draw++;
     }
-    if (playerSelection === ROCK) {
-        return evalWinLoseResult(playerSelection, computerSelection, PAPER, SCISSORS);
+    else if (playerSelection === ROCK) {
+        evalWinLoseResult(result, playerSelection, computerSelection, PAPER, SCISSORS);
     }
-    if (playerSelection === PAPER) {
-        return evalWinLoseResult(playerSelection, computerSelection, SCISSORS, ROCK);
+    else if (playerSelection === PAPER) {
+        evalWinLoseResult(result, playerSelection, computerSelection, SCISSORS, ROCK);
     }
-    if (playerSelection === SCISSORS) {
-        return evalWinLoseResult(playerSelection, computerSelection, ROCK, PAPER);
+    else {
+        evalWinLoseResult(result, playerSelection, computerSelection, ROCK, PAPER);
     }
+
+    return result;
 }
 
-function evalWinLoseResult(playerSelection, computerSelection, computerWinSelection, computerLoseSelection) {
+function evalWinLoseResult(result, playerSelection, computerSelection, computerWinSelection, computerLoseSelection) {
     if (computerSelection === computerWinSelection) {
-        return `You lose! ${computerWinSelection} beats ${playerSelection}!`;
+        result.lose++;
     }
     // Since there's only one case remaining to deal with
     // We don't need to write any more conditions for that!
-    return `You win! ${playerSelection} beats ${computerLoseSelection}!`;
+    result.win++;
 }
 
 function capitalize(str) {
@@ -50,24 +62,18 @@ function capitalize(str) {
 function game(event) {
     let winCounter = 0;
     let loseCounter = 0;
-    let playerInput = null;
-
-
-
-    console.group("Game Result");
-    if (playerInput === null) {
-        console.log(`Uh oh! You lost! You forfeited the game!`);
+    let playerInput = event.target.dataset.selection;
+    
+    roundResult = playRound(playerInput, computerPlay());
+    if (roundResult.win) {
+        result.textContent = `You won using ${playerInput} against ${roundResult.computer} by the computer!`;
     }
-    else if (winCounter === loseCounter) {
-        console.log("It is a tie!");
-    }
-    else if (winCounter > loseCounter) {
-        console.log(`Congratulations! You won against the computer by ${winCounter - loseCounter} point(s)!`);
+    else if (roundResult.lose) {
+        result.textContent = `You lost using ${playerInput} against ${roundResult.computer} by the computer!`;
     }
     else {
-        console.log(`Uh oh! You lost against the computer by ${loseCounter - winCounter} point(s)!`);
+        result.textContent = `It is a draw! You and the computer both chose ${playerInput}.`;
     }
-    console.groupEnd("Game Result");
 }
 
 function promptPlayerInput(round) {
