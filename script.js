@@ -12,7 +12,7 @@ const HAND_OPTIONS = [
     SCISSORS
 ];
 
-const roundResultText = document.querySelector('.round-result');
+const infoText = document.querySelector('.info');
 const roundText = document.querySelector('.round');
 const winText = document.querySelector('.win');
 const loseText = document.querySelector('.lose');
@@ -95,13 +95,13 @@ function playRoundWithComputer(playerSelection) {
 
 function displayRoundResult(roundResult) {
     if (roundResult.first) {
-        roundResultText.textContent = `You won using ${roundResult.firstSelection} against ${roundResult.secondSelection} by the computer!`;
+        infoText.textContent = `You won using ${roundResult.firstSelection} against ${roundResult.secondSelection} by the computer!`;
     }
     else if (roundResult.second) {
-        roundResultText.textContent = `You lost using ${roundResult.firstSelection} against ${roundResult.secondSelection} by the computer!`;
+        infoText.textContent = `You lost using ${roundResult.firstSelection} against ${roundResult.secondSelection} by the computer!`;
     }
     else {
-        roundResultText.textContent = `It is a draw! You and the computer both chose ${roundResult.firstSelection}.`;
+        infoText.textContent = `It is a draw! You and the computer both chose ${roundResult.firstSelection}.`;
     }
 }
 
