@@ -12,21 +12,13 @@ const HAND_OPTIONS = [
     SCISSORS
 ];
 
-/*
-    Returns a random choice between 'Rock',
-    'Paper', and 'Scissors'.
-*/
 function computerPlay() {
     return HAND_OPTIONS[Math.floor(Math.random() * 3)];
 }
 
-/*
-    Returns the result of a single round
-    of this game.
-*/
 function playRound(playerSelection, computerSelection) {
-    playerSelection = capitalizeString(playerSelection);
-    computerSelection = capitalizeString(computerSelection);
+    playerSelection = capitalize(playerSelection);
+    computerSelection = capitalize(computerSelection);
 
     if (playerSelection === computerSelection) {
         return `It is a draw! ${playerSelection} cannot beat itself!`;
@@ -42,10 +34,6 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-/*
-    A helper function of the playRound function which returns
-    the result of a non-draw round.
-*/
 function evalWinLoseResult(playerSelection, computerSelection, computerWinSelection, computerLoseSelection) {
     if (computerSelection === computerWinSelection) {
         return `You lose! ${computerWinSelection} beats ${playerSelection}!`;
@@ -55,17 +43,10 @@ function evalWinLoseResult(playerSelection, computerSelection, computerWinSelect
     return `You win! ${playerSelection} beats ${computerLoseSelection}!`;
 }
 
-/*
-    Returns a string where the first character is upper cased
-    and the rest are lower cased.
-*/
-function capitalizeString(str) {
+function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 }
 
-/*
-    Starts a game of rock, paper, and scissors.
-*/
 function game() {
     let winCounter = 0;
     let loseCounter = 0;
@@ -105,10 +86,6 @@ function game() {
     console.groupEnd("Game Result");
 }
 
-/*
-    Checks the user's play input if valid then
-    returns it.
-*/
 function promptPlayerInput(round) {
     let input = prompt("ROUND " + (round + 1)
         + "\nChoose between 'Rock', 'Paper', and 'Scissors' by typing it below:"
