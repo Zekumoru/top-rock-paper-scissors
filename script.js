@@ -18,42 +18,42 @@ function computerPlay() {
     return HAND_OPTIONS[Math.floor(Math.random() * 3)];
 }
 
-function playRound(playerSelection, computerSelection) {
-    playerSelection = capitalize(playerSelection);
-    computerSelection = capitalize(computerSelection);
+function playRound(firstSelection, secondSelection) {
+    firstSelection = capitalize(firstSelection);
+    secondSelection = capitalize(secondSelection);
 
     const result = {
-        player: playerSelection,
-        computer: computerSelection,
-        win: 0,
-        lose: 0,
+        firstSelection: firstSelection,
+        secondSelection: secondSelection,
+        first: 0,
+        second: 0,
         draw: 0
     };
 
-    if (playerSelection === computerSelection) {
+    if (firstSelection === secondSelection) {
         result.draw++;
     }
-    else if (playerSelection === ROCK) {
-        evalWinLoseResult(result, playerSelection, computerSelection, PAPER, SCISSORS);
+    else if (firstSelection === ROCK) {
+        evalWinLoseResult(result, firstSelection, secondSelection, PAPER, SCISSORS);
     }
-    else if (playerSelection === PAPER) {
-        evalWinLoseResult(result, playerSelection, computerSelection, SCISSORS, ROCK);
+    else if (firstSelection === PAPER) {
+        evalWinLoseResult(result, firstSelection, secondSelection, SCISSORS, ROCK);
     }
     else {
-        evalWinLoseResult(result, playerSelection, computerSelection, ROCK, PAPER);
+        evalWinLoseResult(result, firstSelection, secondSelection, ROCK, PAPER);
     }
 
     return result;
 }
 
-function evalWinLoseResult(result, playerSelection, computerSelection, computerWinSelection, computerLoseSelection) {
-    if (computerSelection === computerWinSelection) {
-        result.lose++;
+function evalWinLoseResult(result, firstSelection, secondSelection, winSelection, loseSelection) {
+    if (secondSelection === winSelection) {
+        result.second++;
         return;
     }
     // Since there's only one case remaining to deal with
     // We don't need to write any more conditions for that!
-    result.win++;
+    result.first++;
 }
 
 function capitalize(str) {
@@ -66,11 +66,11 @@ function game(event) {
     let playerInput = event.target.dataset.selection;
     
     roundResult = playRound(playerInput, computerPlay());
-    if (roundResult.win) {
-        result.textContent = `You won using ${playerInput} against ${roundResult.computer} by the computer!`;
+    if (roundResult.first) {
+        result.textContent = `You won using ${roundResult.firstSelection} against ${roundResult.secondSelection} by the computer!`;
     }
-    else if (roundResult.lose) {
-        result.textContent = `You lost using ${playerInput} against ${roundResult.computer} by the computer!`;
+    else if (roundResult.second) {
+        result.textContent = `You lost using ${roundResult.firstSelection} against ${roundResult.secondSelection} by the computer!`;
     }
     else {
         result.textContent = `It is a draw! You and the computer both chose ${playerInput}.`;
