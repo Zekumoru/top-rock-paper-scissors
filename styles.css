@@ -18,12 +18,17 @@ button {
     margin: 0.4rem 0.2rem;
 }
 
-button:hover {
+button:hover:enabled {
     color: #18191A;
     background-color: antiquewhite;
 }
 
-button:active {
+button:active:enabled {
     border-color: #e7d9c6;
     background-color: #e7d9c6;
+}
+
+button:disabled {
+    border-color: gray;
+    color: gray;
 }

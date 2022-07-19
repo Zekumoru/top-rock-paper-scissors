@@ -1,5 +1,5 @@
 
-const NUMBER_OF_ROUNDS = 5;
+const WINNING_POINTS = 5;
 const INPUT_EVALUATION_REGEX = /^(rock|paper|scissors)$/i;
 
 const ROCK = 'Rock';
@@ -12,6 +12,7 @@ const HAND_OPTIONS = [
     SCISSORS
 ];
 
+const buttons = document.querySelectorAll('button[data-selection]');
 const infoText = document.querySelector('.info');
 const roundText = document.querySelector('.round');
 const winText = document.querySelector('.win');
@@ -74,6 +75,12 @@ function game(event) {
     const roundResult = playRoundWithComputer(event.target.dataset.selection);
     displayRoundResult(roundResult);
     updateTexts();
+
+    const winner = checkWinner();
+    if (winner) {
+        displayWinner(winner);
+        disableSelection();
+    }
 }
 
 function playRoundWithComputer(playerSelection) {
@@ -111,6 +118,26 @@ function updateTexts() {
     loseText.textContent = result.second;
 }
 
-document.querySelectorAll('button[data-selection]').forEach((button) => {
+function checkWinner() {
+    if (result.first >= WINNING_POINTS) {
+        return 'Player';
+    }
+    if (result.second >= WINNING_POINTS) {
+        return 'Computer';
+    }
+    return '';
+}
+
+function displayWinner(winner) {
+    infoText.textContent = `${winner} has won! Press 'Restart' below to play again!`;
+}
+
+function disableSelection() {
+    buttons.forEach((button) => {
+        button.disabled = true;
+    });
+}
+
+buttons.forEach((button) => {
     button.addEventListener('click', game);
 });
