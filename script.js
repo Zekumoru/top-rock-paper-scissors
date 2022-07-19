@@ -52,7 +52,7 @@ function game(event) {
     let loseCounter = 0;
     let playerInput = null;
 
-    
+
 
     console.group("Game Result");
     if (playerInput === null) {
@@ -86,6 +86,6 @@ function promptPlayerInput(round) {
     return input;
 }
 
-document.querySelectorAll('button[data-option]').forEach((button) => {
+document.querySelectorAll('button[data-selection]').forEach((button) => {
     button.addEventListener('click', game);
 });
